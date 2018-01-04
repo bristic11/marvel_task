@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Search Marvel Characters</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="twitter:creator" content="@pixelastic">
+  <meta name="description" content="Search Marvel Characters">
+  <link rel="stylesheet" type="text/css" href="css/instantsearch.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+
+<body>
+
+    <header class="l-header">
+     
+      <div class="header--input-wrapper">
+        <input type="text" class="header--input" id="q" />
+      </div>
+      <div class="header--infos">
+        <div id="current-refined-values" class="header--current-refined-values"></div>
+      </div>
+    </header>
+
+    <div class="l-container js-container">
+      <div class="l-results">
+        <div class="hits" id="hits"></div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+
+    <script id="hitTemplate" language="x-template">
+
+      {{#thumbnail}}
+      <style>
+      .hit__{{uuid}}.hit__inViewport .hit--thumbnail:before {
+        background-image: url({{thumbnail}});
+      }
+      </style>
+      {{/thumbnail}}
+
+      {{#background}}
+      <style>
+      .hit__{{uuid}}.hit__inViewport .hit--content {
+        background-image: url({{background}});
+      }
+      </style>
+      {{/background}}
+
+
+      <article class="hit hit__{{uuid}} {{#inViewport}}hit__inViewport{{/inViewport}}">
+        <div class="hit--thumbnail"></div>
+
+        <div class="hit--content" >
+        <p class="hit--title" >{{{highlightedName}}}</p> 
+            
+          {{#addBookmark}}
+          <div class="hit--description ais-pagination--link">Add Bookmark</div>
+          {{/addBookmark}}
+            
+        </div>
+
+        <textarea style="display:none;" class="js-hit--json-holder">{{json}}</textarea>
+      </article>
+    </script>
+
+    <script src="./js/jquery.min.js"></script>
+
+    <script src="./js/inviewport.min.js"></script>
+    <script src="app.js"></script>
+    <script>require('app').default.init()</script>
+  </body>
+</html>
+

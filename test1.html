@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch-theme-algolia.min.css" />
+  <script src="https://cdn.jsdelivr.net/g/instantsearch.js@1.4.4"></script>
+</head>
+
+<body>
+
+<h9>Test instantsearch.js demo</h9>
+<input id="searchBox" />
+<h2>
+Marvel Characters
+</h2>
+<div id="marvels"></div>
+<!--      
+  privateKey: '01449bba6daf38227469a56c45fe21bc689854ce',
+  publicKey: 'cc5843244607577540ba6938f13040aa',
+-->
+<script >
+var firstLoad = true;
+var search = instantsearch({
+      appId: 'O3F8QXYK6R',
+      apiKey: '78e45b023b7ff7d8ba88c59c9db19890',
+      indexName: 'marvel',
+	  searchFunction: function searchFunction(helper) {
+         helper.search();
+		if (firstLoad) {
+			search.helper.setQuery("name: 'Magma'");
+			//search.helper.setQuery('objectID: "1519460131"');
+			helper.search();
+			firstLoad = false;
+		}
+      }
+});
+
+
+search.addWidget(instantsearch.widgets.hits({
+  container: document.querySelector('#marvels'),
+  
+  hitsPerPage: 12,
+  templates: {
+    item: '  {{{name}}} /   {{{objectID}}}'
+  },
+}));
+
+search.addWidget(instantsearch.widgets.searchBox({
+  container: document.querySelector('#searchBox'),
+  placeholder: 'Search for marvels',
+}));
+
+search.start();
+	
+	</script>
+
+  </body>
+</html>
+
